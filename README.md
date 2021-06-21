@@ -21,13 +21,13 @@ Not all applications can be built for a particular platform. To build embedded a
 
 There are some useful makefile targets:
 
-- Show all available applications
+- Show all available applications:
   `make list_apps`
-- Show all available platforms
+- Show all available platforms:
   `make list_hals`
-- Clean output for particular application and platform
+- Clean output for particular application and platform:
   `make PLATFORM=nRF52840 APP=embedded_app clean`
-- Clean output for all applications and platforms
+- Clean output for all applications and platforms:
   `make clean_all`
 
 
