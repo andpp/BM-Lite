@@ -52,7 +52,7 @@ void platform_bmlite_reset(void)
     hal_timebase_busy_wait(100);
 }
 
-fpc_bep_result_t platform_bmlite_send(uint16_t size, const uint8_t *data, uint32_t timeout,
+fpc_bep_result_t platform_bmlite_spi_send(uint16_t size, const uint8_t *data, uint32_t timeout,
         void *session)
 {
     uint8_t buff[size];
@@ -66,7 +66,7 @@ fpc_bep_result_t platform_bmlite_send(uint16_t size, const uint8_t *data, uint32
     return hal_bmlite_spi_write_read((uint8_t *)data, buff, size, false);
 }
 
-fpc_bep_result_t platform_bmlite_receive(uint16_t size, uint8_t *data, uint32_t timeout,
+fpc_bep_result_t platform_bmlite_spi_receive(uint16_t size, uint8_t *data, uint32_t timeout,
         void *session)
 {
 	volatile uint32_t start_time = hal_timebase_get_tick();

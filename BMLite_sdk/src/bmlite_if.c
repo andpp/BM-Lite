@@ -17,7 +17,6 @@
 #include "hcp_tiny.h"
 #include "bmlite_if.h"
 #include "bmlite_hal.h"
-#include "platform.h"
 #include <stdio.h>
 
 #include "bmlite_if_callbacks.h"

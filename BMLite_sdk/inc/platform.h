@@ -54,7 +54,7 @@ void platform_bmlite_reset(void);
  *
  * @return ::fpc_com_result_t
  */
-fpc_bep_result_t platform_bmlite_send(uint16_t size, const uint8_t *data, uint32_t timeout,
+fpc_bep_result_t platform_bmlite_spi_send(uint16_t size, const uint8_t *data, uint32_t timeout,
         void *session);
 
 /**
@@ -66,7 +66,7 @@ fpc_bep_result_t platform_bmlite_send(uint16_t size, const uint8_t *data, uint32
  *
  * @return ::fpc_com_result_t
  */
-fpc_bep_result_t platform_bmlite_receive(uint16_t size, uint8_t *data, uint32_t timeout,
+fpc_bep_result_t platform_bmlite_spi_receive(uint16_t size, uint8_t *data, uint32_t timeout,
         void *session);
 
 /**

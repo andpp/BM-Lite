@@ -88,8 +88,8 @@ fpc_bep_result_t hal_board_init(void *params)
         p->hcp_comm->read = rpi_com_receive;
         p->hcp_comm->write = rpi_com_send;
     } else {
-        p->hcp_comm->read = platform_bmlite_receive;
-        p->hcp_comm->write = platform_bmlite_send;
+        p->hcp_comm->read = platform_bmlite_spi_receive;
+        p->hcp_comm->write = platform_bmlite_spi_send;
     }
 
     p->hcp_comm->phy_rx_timeout = p->timeout*1000;

@@ -16,11 +16,8 @@
 
 #include <string.h>
 
-#include "platform.h"
 #include "fpc_crc.h"
-#include "fpc_hcp_common.h"
 #include "hcp_tiny.h"
-
 #include "bmlite_if_callbacks.h"
 
 #ifdef DEBUG
