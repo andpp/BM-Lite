@@ -64,14 +64,15 @@ void setup() {
   }
   set_leds(0);
 
-  pinMode(BMLITE_BUTTON, INPUT);
+  pinMode(BMLITE_BUTTON, INPUT_PULLUP);
+  attachInterrupt(digitalPinToInterrupt(BMLITE_BUTTON), check_buttons, CHANGE);
 
   SPI.begin();
   pinMode(BMLITE_CS_PIN, OUTPUT);
   
   platform_init(NULL);
 
-  // This block is for debug purpose only and can be safely removed
+  // These lines for debug purpose only 
   {
     version = (char *)malloc(50);
     memset(version, 0, 50);
