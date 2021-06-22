@@ -46,7 +46,7 @@ fpc_bep_result_t platform_init(void *params);
 void platform_bmlite_reset(void);
 
 /**
- * @brief Sends data over communication port in blocking mode.
+ * @brief Sends data over SPI port in blocking mode.
  *
  * @param[in]       size        Number of bytes to send.
  * @param[in]       data        Data buffer to send.
@@ -58,7 +58,19 @@ fpc_bep_result_t platform_bmlite_spi_send(uint16_t size, const uint8_t *data, ui
         void *session);
 
 /**
- * @brief Receives data from communication port in blocking mode.
+ * @brief Sends data over UART port in blocking mode.
+ *
+ * @param[in]       size        Number of bytes to send.
+ * @param[in]       data        Data buffer to send.
+ * @param[in]       timeout     Timeout in ms. Use 0 for infinity.
+ *
+ * @return ::fpc_com_result_t
+ */
+fpc_bep_result_t platform_bmlite_uart_send(uint16_t size, const uint8_t *data, uint32_t timeout,
+        void *session);
+
+/**
+ * @brief Receives data from SPI port in blocking mode.
  *
  * @param[in]       size        Number of bytes to receive.
  * @param[in, out]  data        Data buffer to fill.
@@ -67,6 +79,18 @@ fpc_bep_result_t platform_bmlite_spi_send(uint16_t size, const uint8_t *data, ui
  * @return ::fpc_com_result_t
  */
 fpc_bep_result_t platform_bmlite_spi_receive(uint16_t size, uint8_t *data, uint32_t timeout,
+        void *session);
+
+/**
+ * @brief Receives data from UART port in blocking mode.
+ *
+ * @param[in]       size        Number of bytes to receive.
+ * @param[in, out]  data        Data buffer to fill.
+ * @param[in]       timeout     Timeout in ms. Use 0 for infinity.
+ *
+ * @return ::fpc_com_result_t
+ */
+fpc_bep_result_t platform_bmlite_uart_receive(uint16_t size, uint8_t *data, uint32_t timeout,
         void *session);
 
 /**
