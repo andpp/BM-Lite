@@ -287,15 +287,15 @@ void hal_timebase_busy_wait(uint32_t delay)
     /* Ensure minimum delay or skip if delay is zero*/
     if (delay) {
         delay_internal = delay + 1;
-        start = micros();
-        while ((micros() - start) < delay_internal) {
+        start = millis();
+        while ((millis() - start) < delay_internal) {
         }
     }
 }
 
 hal_tick_t hal_timebase_get_tick(void)
 {
-    return micros();
+    return millis();
 }
 
 static void check_buttons()
