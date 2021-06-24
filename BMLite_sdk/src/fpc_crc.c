@@ -77,7 +77,7 @@ uint32_t fpc_crc(uint32_t crc, const void *buf, uint32_t size)
 {
     const uint8_t *p;
 
-    p = buf;
+    p = (const uint8_t *)buf;
     crc = crc ^ ~0U;
 
     while (size--) {

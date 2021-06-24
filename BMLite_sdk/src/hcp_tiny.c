@@ -144,7 +144,7 @@ fpc_bep_result_t bmlite_tranceive(HCP_comm_t *hcp_comm)
         bep_result = bmlite_receive(hcp_comm);
 
         if (bmlite_get_arg(hcp_comm, ARG_RESULT) == FPC_BEP_RESULT_OK) {
-            hcp_comm->bep_result = *(int8_t*)hcp_comm->arg.data;
+            hcp_comm->bep_result = (fpc_bep_result_t)*(int8_t*)hcp_comm->arg.data;
         } else {
             hcp_comm->bep_result = FPC_BEP_RESULT_OK;
         }
@@ -200,7 +200,7 @@ fpc_bep_result_t bmlite_receive(HCP_comm_t *hcp_comm)
 static fpc_bep_result_t _rx_link(HCP_comm_t *hcp_comm)
 {
     // Get size, msg and CRC
-    uint16_t result = hcp_comm->read(4, hcp_comm->txrx_buffer, hcp_comm->phy_rx_timeout, NULL);
+    fpc_bep_result_t result = hcp_comm->read(4, hcp_comm->txrx_buffer, hcp_comm->phy_rx_timeout, NULL);
     _HPC_pkt_t *pkt = (_HPC_pkt_t *)hcp_comm->txrx_buffer;
     uint16_t size;
 
