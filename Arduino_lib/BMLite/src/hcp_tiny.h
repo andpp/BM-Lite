@@ -33,9 +33,9 @@ typedef struct {
 
 typedef struct {
     /** Send data to BM-Lite */
-    fpc_bep_result_t (*write) (uint16_t, const uint8_t *, uint32_t, void *);  
+    fpc_bep_result_t (*write) (uint16_t, const uint8_t *, uint32_t);
     /** Receive data from BM-Lite */
-    fpc_bep_result_t (*read)(uint16_t, uint8_t *, uint32_t, void *);
+    fpc_bep_result_t (*read)(uint16_t, uint8_t *, uint32_t);
     /** Receive timeout (msec). Applys ONLY to receiving packet from BM-Lite on physical layer */
     uint32_t phy_rx_timeout;
     /** Data buffer for application layer */

@@ -69,8 +69,7 @@ bool rpi_com_init(char *port, int baudrate, int timeout);
  *
  * @return ::fpc_bep_result_t
  */
-fpc_bep_result_t rpi_com_send(uint16_t size, const uint8_t *data, uint32_t timeout,
-        void *session);
+fpc_bep_result_t rpi_com_send(uint16_t size, const uint8_t *data, uint32_t timeout);
 
 /**
  * @brief Receives data from communication port in blocking mode.
@@ -81,8 +80,7 @@ fpc_bep_result_t rpi_com_send(uint16_t size, const uint8_t *data, uint32_t timeo
  *
  * @return ::fpc_bep_result_t
  */
-fpc_bep_result_t rpi_com_receive(uint16_t size, uint8_t *data, uint32_t timeout,
-        void *session);
+fpc_bep_result_t rpi_com_receive(uint16_t size, uint8_t *data, uint32_t timeout);
 
 /**
  * @brief Initializes SPI Physical layer.

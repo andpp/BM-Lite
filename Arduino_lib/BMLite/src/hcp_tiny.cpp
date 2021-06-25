@@ -200,7 +200,7 @@ fpc_bep_result_t bmlite_receive(HCP_comm_t *hcp_comm)
 static fpc_bep_result_t _rx_link(HCP_comm_t *hcp_comm)
 {
     // Get size, msg and CRC
-    fpc_bep_result_t result = hcp_comm->read(4, hcp_comm->txrx_buffer, hcp_comm->phy_rx_timeout, NULL);
+    fpc_bep_result_t result = hcp_comm->read(4, hcp_comm->txrx_buffer, hcp_comm->phy_rx_timeout);
     _HPC_pkt_t *pkt = (_HPC_pkt_t *)hcp_comm->txrx_buffer;
     uint16_t size;
 
@@ -218,7 +218,7 @@ static fpc_bep_result_t _rx_link(HCP_comm_t *hcp_comm)
         return FPC_BEP_RESULT_IO_ERROR;
     }
         
-    hcp_comm->read(size + 4, hcp_comm->txrx_buffer + 4, 100, NULL);
+    hcp_comm->read(size + 4, hcp_comm->txrx_buffer + 4, 100);
 
     uint32_t crc = *(uint32_t *)(hcp_comm->txrx_buffer + 4 + size);
     uint32_t crc_calc = fpc_crc(0, hcp_comm->txrx_buffer+4, size);
@@ -231,7 +231,7 @@ static fpc_bep_result_t _rx_link(HCP_comm_t *hcp_comm)
     }
 
     // Send Ack
-    hcp_comm->write(4, (uint8_t *)&fpc_com_ack, 0, NULL);
+    hcp_comm->write(4, (uint8_t *)&fpc_com_ack, 0);
 
     return FPC_BEP_RESULT_OK;
 }
@@ -285,11 +285,11 @@ static fpc_bep_result_t _tx_link(HCP_comm_t *hcp_comm)
     *(uint32_t *)(hcp_comm->txrx_buffer + pkt->lnk_size + 4) = crc_calc;
     uint16_t size = pkt->lnk_size + 8;
 
-    bep_result = hcp_comm->write(size, hcp_comm->txrx_buffer, 0, NULL);
+    bep_result = hcp_comm->write(size, hcp_comm->txrx_buffer, 0);
 
     // Wait for ACK
     uint32_t ack;
-    bep_result = hcp_comm->read(4, (uint8_t *)&ack, 500, NULL);
+    bep_result = hcp_comm->read(4, (uint8_t *)&ack, 500);
     if (bep_result == FPC_BEP_RESULT_TIMEOUT) {
         LOG_DEBUG("ASK read timeout\n");
         bmlite_on_error(BMLITE_ERROR_SEND_CMD, FPC_BEP_RESULT_TIMEOUT);

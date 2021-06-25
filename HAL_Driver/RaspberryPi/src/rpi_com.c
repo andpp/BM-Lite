@@ -84,8 +84,7 @@ bool rpi_com_init(char *port, int baudrate, int timeout)
     return true;
 }
 
-fpc_bep_result_t rpi_com_send(uint16_t size, const uint8_t *data, uint32_t timeout,
-        void *session)
+fpc_bep_result_t rpi_com_send(uint16_t size, const uint8_t *data, uint32_t timeout)
 {
     fpc_bep_result_t res = FPC_BEP_RESULT_OK;
     int n;
@@ -104,8 +103,7 @@ fpc_bep_result_t rpi_com_send(uint16_t size, const uint8_t *data, uint32_t timeo
     return res;
 }
 
-fpc_bep_result_t rpi_com_receive(uint16_t size, uint8_t *data, uint32_t timeout,
-        void *session)
+fpc_bep_result_t rpi_com_receive(uint16_t size, uint8_t *data, uint32_t timeout)
 {
     fpc_bep_result_t res = FPC_BEP_RESULT_OK;
     int n_read = 0;

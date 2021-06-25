@@ -54,8 +54,7 @@ void platform_bmlite_reset(void);
  *
  * @return ::fpc_com_result_t
  */
-fpc_bep_result_t platform_bmlite_spi_send(uint16_t size, const uint8_t *data, uint32_t timeout,
-        void *session);
+fpc_bep_result_t platform_bmlite_spi_send(uint16_t size, const uint8_t *data, uint32_t timeout);
 
 /**
  * @brief Sends data over UART port in blocking mode.
@@ -78,8 +77,7 @@ fpc_bep_result_t platform_bmlite_uart_send(uint16_t size, const uint8_t *data, u
  *
  * @return ::fpc_com_result_t
  */
-fpc_bep_result_t platform_bmlite_spi_receive(uint16_t size, uint8_t *data, uint32_t timeout,
-        void *session);
+fpc_bep_result_t platform_bmlite_spi_receive(uint16_t size, uint8_t *data, uint32_t timeout);
 
 /**
  * @brief Receives data from UART port in blocking mode.

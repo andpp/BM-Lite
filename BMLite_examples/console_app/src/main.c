@@ -43,13 +43,13 @@ static uint8_t hcp_txrx_buffer[MTU];
 static uint8_t hcp_data_buffer[DATA_BUFFER_SIZE];
 
 static HCP_comm_t hcp_chain = {
-    .read = platform_bmlite_spi_receive,
     .write = platform_bmlite_spi_send,
-    .pkt_buffer = hcp_data_buffer,
-    .txrx_buffer = hcp_txrx_buffer,
-    .pkt_size = 0,
-    .pkt_size_max = sizeof(hcp_data_buffer),
+    .read = platform_bmlite_spi_receive,
     .phy_rx_timeout = 2000,
+    .pkt_buffer = hcp_data_buffer,
+    .pkt_size_max = sizeof(hcp_data_buffer),
+    .pkt_size = 0,
+    .txrx_buffer = hcp_txrx_buffer,
 };
 
 static void help(void)
@@ -253,7 +253,7 @@ int main (int argc, char **argv)
                 uint32_t size;
                 res = bep_image_get_size(&hcp_chain, &size);
                 if (res == FPC_BEP_RESULT_OK) {
-                    uint8_t *buf = malloc(size);
+                    uint8_t *buf = (uint8_t *)malloc(size);
                     if (buf) {
                       res = bep_image_get(&hcp_chain, buf, size);
                       if (res == FPC_BEP_RESULT_OK) {
@@ -282,7 +282,7 @@ int main (int argc, char **argv)
                 uint32_t size;
                 printf("Read template from file: ");
                 fscanf(stdin, "%s", cmd);
-                uint8_t *buf = malloc(102400);
+                uint8_t *buf = (uint8_t *)malloc(102400);
                 FILE *f = fopen(cmd, "rb");
                 if (f) {
                     size = fread(buf, 1, 102400, f);
@@ -302,7 +302,7 @@ int main (int argc, char **argv)
                 break;
             }
             case 't': {
-                    uint8_t *buf = malloc(102400);
+                    uint8_t *buf = (uint8_t *)malloc(102400);
                     printf("Save template to file: ");
                     fscanf(stdin, "%s", cmd);
                     if (buf) {
