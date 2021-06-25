@@ -2,7 +2,6 @@
 
 HAL = $(ROOT)/HAL_Driver/RaspberryPi
 
-PATH := /work/devtools/gcc-arm-hf/bin:$(PATH)
 CC := arm-linux-gnueabihf-gcc
 
 CFLAGS +=\

@@ -24,4 +24,5 @@ C_INC += $(addprefix -I,$(PATH_INC))
 
 CFLAGS +=\
 	-DBMLITE_USE_CALLBACK \
+	-DDEBUG_COMM
 

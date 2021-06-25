@@ -114,7 +114,7 @@ int main (int argc, char **argv)
     int c;
     rpi_initparams_t rpi_params;
     
-    rpi_params.iface = COM_INTERFACE;
+    rpi_params.iface = SPI_INTERFACE;
     rpi_params.hcp_comm = &hcp_chain;
     rpi_params.baudrate = 921600;
     rpi_params.timeout = 5;
@@ -133,6 +133,7 @@ int main (int argc, char **argv)
                 rpi_params.baudrate = atoi(optarg);
                 break;
             case 'p':
+                rpi_params.iface = COM_INTERFACE;
                 rpi_params.port = optarg;
                 break;
             case 't':
