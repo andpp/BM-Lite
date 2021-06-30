@@ -1,0 +1,83 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "shell",
+            "label": "wb55 make",
+            "command": "make",
+            "args": ["-j4", "-C", "BMLite_examples", "PLATFORM=stm32wb55", "APP=embedded_app", "DEBUG=y"],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": {
+                "base": "$gcc",
+                "fileLocation": ["relative", "${workspaceFolder}"]
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "type": "shell",
+            "label": "wb55 make clean",
+            "command": "make",
+            "args": ["-C", "BMLite_examples", "PLATFORM=stm32wb55", "APP=embedded_app", "clean"],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": {
+                "base": "$gcc",
+                "fileLocation": ["relative", "${workspaceFolder}", "absolute"]
+            },
+            "group": "build"
+        },
+        {
+            "type": "shell",
+            "label": "nRF52840 make",
+            "command": "make",
+            "args": ["-j4", "-C", "BMLite_examples", "PLATFORM=nRF52840", "APP=embedded_app", "DEBUG=y"],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": {
+                "base": "$gcc",
+                "fileLocation": ["relative", "${workspaceFolder}"]
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "type": "shell",
+            "label": "nRF52840 make clean",
+            "command": "make",
+            "args": ["-C", "BMLite_examples", "PLATFORM=nRF52840", "APP=embedded_app", "clean"],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": {
+                "base": "$gcc",
+                "fileLocation": ["relative", "${workspaceFolder}", "absolute"]
+            },
+            "group": "build"
+        },
+        {
+            "type": "shell",
+            "label": "make clean",
+            "command": "make",
+            "args": ["-C", "BMLite_examples", "clean_all"],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": {
+                "base": "$gcc",
+                "fileLocation": ["relative", "${workspaceFolder}", "absolute"]
+            },
+            "group": "build"
+        },
+    ]
+}

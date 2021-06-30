@@ -1,0 +1,30 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Cortex Debug stm32wb55",
+            "cwd": "${workspaceRoot}",
+            "executable": "${workspaceRoot}/BMLite_examples/out/embedded_app/stm32wb55/embedded_app",
+            "request": "launch",
+            "type": "cortex-debug",
+            "servertype": "jlink",
+            "device": "STM32WB55xx",
+            "interface": "swd",
+            "runToMain": true,
+        }
+        {
+            "name": "Cortex Debug nRF52840",
+            "cwd": "${workspaceRoot}",
+            "executable": "${workspaceRoot}/BMLite_examples/out/embedded_app/nRF52840/embedded_app",
+            "request": "launch",
+            "type": "cortex-debug",
+            "servertype": "jlink",
+            "device": "nRF52840_xxAA",
+            "interface": "swd",
+            "runToMain": true,
+        }
+    ]
+}
