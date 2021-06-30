@@ -106,7 +106,7 @@ void loop() {
         current_id = 0;
     }
     res = bep_identify_finger(&hcp_chain, 0, &template_id, &match);
-    if (res == FPC_BEP_RESULT_TIMEOUT) {
+    if (res == FPC_BEP_RESULT_TIMEOUT || res == FPC_BEP_RESULT_IO_ERROR) {
         platform_bmlite_reset();
     } else if (res != FPC_BEP_RESULT_OK) {
         return;
