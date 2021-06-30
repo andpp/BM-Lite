@@ -45,6 +45,8 @@ static HCP_comm_t hcp_chain = {
     .phy_rx_timeout = 2000,
 };
 
+#ifdef BMLITE_USE_CALLBACK
+
 void bmlite_on_error(bmlite_error_t error, int32_t value)
 {
     if(value != FPC_BEP_RESULT_TIMEOUT) {
@@ -84,7 +86,7 @@ void bmlite_on_identify_start()
 }
 
 // void bmlite_on_identify_finish();
-
+#endif
 
 int main (int argc, char **argv)
 {
@@ -117,8 +119,9 @@ int main (int argc, char **argv)
                 current_id = 0;
             }
             res = bep_identify_finger(&hcp_chain, 0, &template_id, &match);
-            if (res == FPC_BEP_RESULT_TIMEOUT) {
+            if (res == FPC_BEP_RESULT_TIMEOUT || res == FPC_BEP_RESULT_IO_ERROR) {
                 platform_bmlite_reset();
+                continue;
             } else if (res != FPC_BEP_RESULT_OK) {
                 continue;
             }

@@ -48,7 +48,7 @@ typedef struct {
 * Pin definitions for RPI 3
 */
 #define BMLITE_RESET_PIN    0
-#define BMLITE_IRQ_PIN      22
+#define BMLITE_READY_PIN      22
 #define SPI_CHANNEL         0
 
 /**

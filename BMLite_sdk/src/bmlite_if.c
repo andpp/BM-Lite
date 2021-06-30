@@ -152,6 +152,10 @@ fpc_bep_result_t bep_capture(HCP_comm_t *chain, uint16_t timeout)
     chain->phy_rx_timeout = timeout;
     for(int i=0; i< MAX_SINGLE_CAPTURE_ATTEMPTS; i++) {
         bep_result = bmlite_send_cmd_arg(chain, CMD_CAPTURE, ARG_NONE, ARG_TIMEOUT, &timeout, sizeof(timeout));
+        if(bep_result == FPC_BEP_RESULT_IO_ERROR ||
+           bep_result == FPC_BEP_RESULT_TIMEOUT) {
+            break;
+        }
         if( !(bep_result || chain->bep_result))
             break;
     }

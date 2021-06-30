@@ -20,7 +20,7 @@
 
 
 CPU = cortex_m4
-LOG :=
+FPU ?= hard
 CC := arm-none-eabi-gcc
 
 CFLAGS +=\
@@ -116,7 +116,6 @@ HAL_SRCS += \
   $(SDK_ROOT)/external/segger_rtt/SEGGER_RTT.c \
   $(SDK_ROOT)/external/segger_rtt/SEGGER_RTT_Syscalls_GCC.c \
   $(SDK_ROOT)/external/segger_rtt/SEGGER_RTT_printf.c \
-#  $(PROJ_DIR)/main.c \
    	  
 VPATH += $(dir $(HAL_SRCS))
 C_SRCS += $(notdir $(HAL_SRCS))

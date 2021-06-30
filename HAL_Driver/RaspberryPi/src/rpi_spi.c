@@ -53,7 +53,7 @@ static const uint8_t     spiBPW   = 8;
 
 uint32_t speed_hz_int;
 
-void fpc_sensor_spi_reset(bool state);
+void fpc_bmlite_reset(bool state);
 
 static void raspberryPi_init()
 {
@@ -61,7 +61,7 @@ static void raspberryPi_init()
     wiringPiSetup();
 
     /* Set correct pin modes */
-    pinMode(BMLITE_IRQ_PIN, INPUT);
+    pinMode(BMLITE_READY_PIN, INPUT);
     pinMode(BMLITE_RESET_PIN, OUTPUT);
 
     /* Set reset high */
@@ -81,7 +81,7 @@ void hal_bmlite_reset(bool state)
 
 bool hal_bmlite_get_status(void)
 {
-    return digitalRead(BMLITE_IRQ_PIN);
+    return digitalRead(BMLITE_READY_PIN);
 }
 
 
