@@ -138,7 +138,7 @@ bool rpi_spi_init(uint32_t speed_hz)
     return true;
 }
 
-fpc_bep_result_t hal_bmlite_spi_write_read(const uint8_t *write, uint8_t *read, size_t size,
+fpc_bep_result_t hal_bmlite_spi_write_read(uint8_t *write, uint8_t *read, size_t size,
     bool leave_cs_asserted)
 {
     /*

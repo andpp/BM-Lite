@@ -36,6 +36,7 @@
 #include "bmlite_hal.h"
 #include "platform_rpi.h"
 #include "platform.h"
+#include "console_params.h"
 
 hal_tick_t hal_timebase_get_tick(void)
 {
@@ -54,7 +55,7 @@ void hal_timebase_busy_wait(uint32_t ms)
     usleep(ms * 1000);
 }
 
-void rpi_clear_screen(void)
+void clear_screen(void)
 {
     system("clear");
 }
@@ -65,7 +66,7 @@ void hal_timebase_init()
 
 fpc_bep_result_t hal_board_init(void *params)
 {
-    rpi_initparams_t *p = (rpi_initparams_t *)params;
+    console_initparams_t *p = (console_initparams_t *)params;
         switch (p->iface) {
         case SPI_INTERFACE:
             if(!rpi_spi_init(p->baudrate)) {

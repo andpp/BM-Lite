@@ -32,7 +32,7 @@ OUT := $(OUT_BASE)/$(APP)/$(PLATFORM)
 
 HAL_DIRS = $(subst $(HAL_BASE),, $(sort $(dir $(wildcard $(HAL_BASE)/*/))))
 HAL_LIST = $(subst /,,$(HAL_DIRS))
-APP_LIST = $(subst /,, $(sort $(dir $(wildcard */))))
+APP_LIST = $(filter-out out, $(subst /,, $(sort $(dir $(wildcard */)))))
 
 ifneq ($(PLATFORM),)
  ifeq ($(filter $(PLATFORM),$(HAL_LIST)),)  
@@ -42,18 +42,18 @@ endif
 
 ifneq ($(APP),)
  ifeq ($(filter $(APP),$(APP_LIST)),)  
-   $(error "Unknown application: $(APP). Use one of $(HAL_LIST)")
+   $(error "Unknown application: $(APP). Use one of $(APP_LIST)")
  endif
 endif
 
 
-ifeq ($(PLATFORM),RaspberryPi)
- ifeq ($(APP),embedded_app)
-   $(error 'embedded_app is not supported for $(PLATFORM)')
- endif
-else
+ifeq ($(filter $(PLATFORM), RaspberryPi Linux),)
   ifeq ($(APP),console_app)
     $(error 'console_app is not supported for $(PLATFORM)')
+  endif
+else
+  ifeq ($(APP),embedded_app)
+    $(error 'embedded_app is not supported for $(PLATFORM)')
   endif
 endif
 

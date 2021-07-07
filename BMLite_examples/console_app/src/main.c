@@ -36,7 +36,9 @@
 #include "hcp_tiny.h"
 #include "platform.h"
 #include "bmlite_hal.h"
-#include "platform_rpi.h"
+#include "platform_linux.h"
+#include "console_params.h"
+
 
 #define DATA_BUFFER_SIZE 102400
 static uint8_t hcp_txrx_buffer[MTU];
@@ -112,32 +114,32 @@ int main (int argc, char **argv)
 {
     int index;
     int c;
-    rpi_initparams_t rpi_params;
+    console_initparams_t app_params;
     
-    rpi_params.iface = SPI_INTERFACE;
-    rpi_params.hcp_comm = &hcp_chain;
-    rpi_params.baudrate = 921600;
-    rpi_params.timeout = 5;
-    rpi_params.port = NULL;
+    app_params.iface = SPI_INTERFACE;
+    app_params.hcp_comm = &hcp_chain;
+    app_params.baudrate = 921600;
+    app_params.timeout = 5;
+    app_params.port = NULL;
 
     opterr = 0;
 
     while ((c = getopt (argc, argv, "sb:p:t:")) != -1) {
         switch (c) {
             case 's':
-                rpi_params.iface = SPI_INTERFACE;
-                if(rpi_params.baudrate == 921600)
-                    rpi_params.baudrate = 1000000;
+                app_params.iface = SPI_INTERFACE;
+                if(app_params.baudrate == 921600)
+                    app_params.baudrate = 1000000;
                 break;
             case 'b':
-                rpi_params.baudrate = atoi(optarg);
+                app_params.baudrate = atoi(optarg);
                 break;
             case 'p':
-                rpi_params.iface = COM_INTERFACE;
-                rpi_params.port = optarg;
+                app_params.iface = COM_INTERFACE;
+                app_params.port = optarg;
                 break;
             case 't':
-                rpi_params.timeout = atoi(optarg);
+                app_params.timeout = atoi(optarg);
                 break;
             case '?':
                 if (optopt == 'b')
@@ -155,7 +157,7 @@ int main (int argc, char **argv)
             }
         }
 
-    if (rpi_params.iface == COM_INTERFACE && rpi_params.port == NULL) {
+    if (app_params.iface == COM_INTERFACE && app_params.port == NULL) {
         printf("port must be specified\n");
         help();
         exit(1);
@@ -165,7 +167,7 @@ int main (int argc, char **argv)
         printf ("Non-option argument %s\n", argv[index]);
     }
 
-    if(platform_init(&rpi_params) != FPC_BEP_RESULT_OK) {
+    if(platform_init(&app_params) != FPC_BEP_RESULT_OK) {
         help();
         exit(1);
     }
@@ -176,13 +178,13 @@ int main (int argc, char **argv)
         uint16_t template_id;
         bool match;
 
-        rpi_clear_screen();
+        clear_screen();
         printf("BM-Lite Interface\n");
-        if (rpi_params.iface == SPI_INTERFACE)
-        	printf("SPI port: speed %d Hz\n", rpi_params.baudrate);
+        if (app_params.iface == SPI_INTERFACE)
+        	printf("SPI port: speed %d Hz\n", app_params.baudrate);
         else
-            printf("Com port: %s [speed: %d]\n", rpi_params.port, rpi_params.baudrate);
-        printf("Timeout: %ds\n", rpi_params.timeout);
+            printf("Com port: %s [speed: %d]\n", app_params.port, app_params.baudrate);
+        printf("Timeout: %ds\n", app_params.timeout);
         printf("-------------------\n\n");
         printf("Possible options:\n");
         printf("a: Enroll finger\n");

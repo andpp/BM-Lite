@@ -31,24 +31,11 @@
 #include "fpc_bep_types.h"
 #include "hcp_tiny.h"
 
-typedef enum {
-   COM_INTERFACE = 0,
-   SPI_INTERFACE
-} interface_t;
-
-typedef struct {
-   interface_t iface;
-   char *port;
-   uint32_t baudrate;
-   uint32_t timeout;
-   HCP_comm_t *hcp_comm;
-} rpi_initparams_t;
-
 /*
 * Pin definitions for RPI 3
 */
 #define BMLITE_RESET_PIN    0
-#define BMLITE_READY_PIN      22
+#define BMLITE_READY_PIN    22
 #define SPI_CHANNEL         0
 
 /**
@@ -123,7 +110,7 @@ fpc_bep_result_t platform_spi_receive(uint16_t size, uint8_t *data, uint32_t tim
 /**
  * @brief Clear console screen
  */
-void rpi_clear_screen(void);
+void clear_screen(void);
 
 /**
  * @brief Busy wait.

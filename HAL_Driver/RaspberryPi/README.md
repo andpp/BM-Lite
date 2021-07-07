@@ -10,4 +10,4 @@ Based on [BM-LIte Development Kit](https://www.fingerprints.com/solutions/access
 |  BMLITE_IRQ      | 22  |
 | SPI_CHANNEL   | 1 |
 
-HW configuration can be changed in **BMLite_examples/RaspberryPiinc/raspberry_pi_hal.h**
+HW configuration can be changed in **BMLite_examples/RaspberryPi/inc/platform_rpi.h**
