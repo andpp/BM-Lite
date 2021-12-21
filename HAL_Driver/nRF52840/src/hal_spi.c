@@ -18,9 +18,11 @@
  */
 
 /**
- * @file    platform_spi.c
- * @brief   SPI functions
+ * @file    hal_spi.c
+ * @brief   SPI HAL functions
  */
+
+#ifdef BMLITE_ON_SPI
 
 #include "nrf_drv_spi.h"
 #include "boards.h"
@@ -110,3 +112,4 @@ void nordic_bmlite_spi_init(uint32_t speed_hz)
     nrf_drv_gpiote_out_init(BMLITE_CS_PIN, &out_config);
 }
 
+#endif

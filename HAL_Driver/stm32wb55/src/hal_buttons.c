@@ -18,7 +18,7 @@
  */
 
 /**
- * @file   button.c
+ * @file   hal_buttons.c
  * @brief  Initialization and access of button.
  */
 

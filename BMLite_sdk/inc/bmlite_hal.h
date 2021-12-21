@@ -77,6 +77,22 @@ fpc_bep_result_t hal_bmlite_spi_write_read(uint8_t *write, uint8_t *read, size_t
         bool leave_cs_asserted);
 
 /*
+ * @brief UART write
+ * @param[in] Write buffer
+ * @param[in] Size
+ * @return ::size_t Number of bytes actually written
+ */
+size_t hal_bmlite_uart_write(const uint8_t *data, size_t size);
+
+/*
+ * @brief UART read
+ * @param[in] Read buffer
+ * @param[in] Size
+ * @return ::size_t Number of butes actually read
+ */
+size_t hal_bmlite_uart_read(uint8_t *buff, size_t size);
+
+/*
  * @brief Check if BM-Lite IRQ pin is set
  * @return ::bool
  */

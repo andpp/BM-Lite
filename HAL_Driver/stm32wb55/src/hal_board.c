@@ -36,6 +36,7 @@ static void dma_init();
 static void system_irq_init();
 
 void stm_spi_init(uint32_t speed_hz);
+void stm_uart_init(uint32_t speed_hz);
 void board_led_init();
 void board_button_init();
 
@@ -60,7 +61,15 @@ fpc_bep_result_t hal_board_init(void *params)
     /* Initialize DMA */
     dma_init();
 
+#ifdef BMLITE_ON_UART
+    stm_uart_init(115200);
+#else
+#ifdef BMLITE_ON_SPI
     stm_spi_init(4000000);
+#else
+   #error "BMLITE_ON_SPI or BMLITE_ON_SPI must be defined"
+#endif
+#endif
 
     if (debugger) {
         HAL_DBGMCU_EnableDBGStandbyMode();

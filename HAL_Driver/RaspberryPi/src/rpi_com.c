@@ -84,26 +84,20 @@ bool rpi_com_init(char *port, int baudrate, int timeout)
     return true;
 }
 
-fpc_bep_result_t rpi_com_send(uint16_t size, const uint8_t *data, uint32_t timeout)
+size_t hal_bmlite_uart_write(const uint8_t *data, size_t size)
 {
-    fpc_bep_result_t res = FPC_BEP_RESULT_OK;
     int n;
 
     if (fd < 0) {
         fprintf(stderr, "error invalid file descriptor");
-        return FPC_BEP_RESULT_INVALID_ARGUMENT;
+        return 0;
     }
 
-    n = write(fd, data, size);
+    return write(fd, data, size);
 
-    if (n != size) {
-        res = FPC_BEP_RESULT_IO_ERROR;
-    }
-
-    return res;
 }
 
-fpc_bep_result_t rpi_com_receive(uint16_t size, uint8_t *data, uint32_t timeout)
+size_t hal_bmlite_uart_read(uint8_t *data, size_t size)
 {
     fpc_bep_result_t res = FPC_BEP_RESULT_OK;
     int n_read = 0;
@@ -136,7 +130,7 @@ fpc_bep_result_t rpi_com_receive(uint16_t size, uint8_t *data, uint32_t timeout)
         }
     }
 
-    return res;
+    return n_read;
 }
 
 

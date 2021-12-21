@@ -36,9 +36,9 @@
 fpc_bep_result_t platform_init(void *params)
 {
     fpc_bep_result_t result;
+    hal_timebase_init();
     result = hal_board_init(params);
     if(result == FPC_BEP_RESULT_OK) {
-        hal_timebase_init();
         platform_bmlite_reset();
     }
     return result;
@@ -51,6 +51,56 @@ void platform_bmlite_reset(void)
     hal_bmlite_reset(false);
     hal_timebase_busy_wait(100);
 }
+
+#ifdef BMLITE_ON_UART
+
+fpc_bep_result_t platform_bmlite_uart_send(uint16_t size, const uint8_t *data, uint32_t timeout)
+{
+    #ifdef DEBUG_COMM
+    LOG_DEBUG("-> ");
+    for (int i=0; i<size; i++)
+       LOG_DEBUG("%02X ", data[i]);
+    LOG_DEBUG("\n");
+#endif
+
+    size_t bytes_sent = hal_bmlite_uart_write(data, size);
+    if(bytes_sent == size)
+        return FPC_BEP_RESULT_OK;
+
+    return FPC_BEP_RESULT_IO_ERROR;
+}
+
+fpc_bep_result_t platform_bmlite_uart_receive(uint16_t size, uint8_t *data, uint32_t timeout)
+{
+    size_t total = 0;
+
+    volatile uint32_t start_time = hal_timebase_get_tick();
+	volatile uint32_t curr_time = start_time;
+    while (total < size &&
+    		(!timeout || (curr_time = hal_timebase_get_tick()) - start_time < timeout)) {
+                total += hal_bmlite_uart_read(data + total, size);
+                if(hal_check_button_pressed()) {
+                    break;
+                }
+    }
+    if(total < size) {
+        return FPC_BEP_RESULT_TIMEOUT;
+    }
+
+
+#ifdef DEBUG_COMM
+    LOG_DEBUG("<- ");
+    if(res == FPC_BEP_RESULT_OK) {
+        for (int i=0; i<size; i++)
+        LOG_DEBUG("%02X ", data[i]);
+    }
+    LOG_DEBUG("\n");
+#endif
+
+    return FPC_BEP_RESULT_OK;
+}
+
+#else    //  BMLITE_ON_SPI
 
 fpc_bep_result_t platform_bmlite_spi_send(uint16_t size, const uint8_t *data, uint32_t timeout)
 {
@@ -92,6 +142,8 @@ fpc_bep_result_t platform_bmlite_spi_receive(uint16_t size, uint8_t *data, uint3
 
     return res;
 }
+
+#endif
 
 __attribute__((weak)) uint32_t hal_check_button_pressed()
 {

@@ -86,8 +86,8 @@ fpc_bep_result_t hal_board_init(void *params)
     }
 
     if (p->iface == COM_INTERFACE) {
-        p->hcp_comm->read = rpi_com_receive;
-        p->hcp_comm->write = rpi_com_send;
+        p->hcp_comm->read = platform_bmlite_uart_receive;
+        p->hcp_comm->write = platform_bmlite_uart_send;
     } else {
         p->hcp_comm->read = platform_bmlite_spi_receive;
         p->hcp_comm->write = platform_bmlite_spi_send;

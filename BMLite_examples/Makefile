@@ -72,6 +72,13 @@ CFLAGS +=\
        -MMD \
        -MP 
 
+ifeq ($(PORT),UART)
+CFLAGS += -DBMLITE_ON_UART
+else
+CFLAGS += -DBMLITE_ON_SPI
+endif
+
+
 ifeq ($(DEBUG),y)
 CFLAGS +=\
   -g3\

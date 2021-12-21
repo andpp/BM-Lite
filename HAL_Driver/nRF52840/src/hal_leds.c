@@ -19,7 +19,7 @@
 
 
 /**
- * @file   board_leds.c
+ * @file   hal_leds.c
  * @brief  Leds control functions.
  */
 

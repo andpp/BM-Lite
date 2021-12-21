@@ -7,7 +7,7 @@
             "type": "shell",
             "label": "wb55 make",
             "command": "make",
-            "args": ["-j4", "-C", "BMLite_examples", "PLATFORM=stm32wb55", "APP=embedded_app", "DEBUG=y"],
+            "args": ["-j4", "-C", "BMLite_examples", "PLATFORM=stm32wb55", "PORT=UART", "APP=embedded_app", "DEBUG=y"],
             "options": {
                 "cwd": "${workspaceFolder}"
             },

@@ -14,17 +14,17 @@
             "device": "STM32WB55xx",
             "interface": "swd",
             "runToMain": true,
-        }
-        {
-            "name": "Cortex Debug nRF52840",
-            "cwd": "${workspaceRoot}",
-            "executable": "${workspaceRoot}/BMLite_examples/out/embedded_app/nRF52840/embedded_app",
-            "request": "launch",
-            "type": "cortex-debug",
-            "servertype": "jlink",
-            "device": "nRF52840_xxAA",
-            "interface": "swd",
-            "runToMain": true,
-        }
+        },
+        // {
+        //     "name": "Cortex Debug nRF52840",
+        //     "cwd": "${workspaceRoot}",
+        //     "executable": "${workspaceRoot}/BMLite_examples/out/embedded_app/nRF52840/embedded_app",
+        //     "request": "launch",
+        //     "type": "cortex-debug",
+        //     "servertype": "jlink",
+        //     "device": "nRF52840_xxAA",
+        //     "interface": "swd",
+        //     "runToMain": true,
+        // }
     ]
 }

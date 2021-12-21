@@ -69,6 +69,32 @@
 #define BMLITE_SPI_DMA_IRQ_HANDLER_TX  DMA1_Channel3_IRQHandler
 
 /**
+ * Configuration of UART used for BM-Lite communication.
+*/
+#define FPC_BMLITE_USART                     USART1
+#define FPC_BMLITE_USART_AF                  GPIO_AF7_USART1
+#define FPC_BMLITE_USART_CLK_ENABLE          __HAL_RCC_USART1_CLK_ENABLE
+#define FPC_BMLITE_USART_IRQn                USART1_IRQn
+#define FPC_BMLITE_USART_IRQ_HANDLER         USART1_IRQHandler
+
+#define FPC_BMLITE_USART_RX_PORT             GPIOA
+#define FPC_BMLITE_USART_RX_PIN              GPIO_PIN_10
+#define FPC_BMLITE_USART_TX_PORT             GPIOA
+#define FPC_BMLITE_USART_TX_PIN              GPIO_PIN_9
+#define FPC_BMLITE_USART_RX_PORT_CLK_ENABLE  __HAL_RCC_GPIOA_CLK_ENABLE
+#define FPC_BMLITE_USART_TX_PORT_CLK_ENABLE  __HAL_RCC_GPIOB_CLK_ENABLE
+
+#define FPC_BMLITE_USART_DMA_CHANNEL_RX      DMA1_Channel6
+#define FPC_BMLITE_USART_DMA_REQ_RX          DMA_REQUEST_USART1_RX
+#define FPC_BMLITE_USART_DMA_IRQn_RX         DMA1_Channel6_IRQn
+#define FPC_BMLITE_USART_DMA_IRQ_HANDLER_RX  DMA1_Channel6_IRQHandler
+#define FPC_BMLITE_USART_DMA_CHANNEL_TX      DMA1_Channel7
+#define FPC_BMLITE_USART_DMA_REQ_TX          DMA_REQUEST_USART1_TX
+#define FPC_BMLITE_USART_DMA_IRQn_TX         DMA1_Channel7_IRQn
+#define FPC_BMLITE_USART_DMA_IRQ_HANDLER_TX  DMA1_Channel7_IRQHandler
+
+
+/**
  * Configuration of GPIO used for sensor reset / sensor interrupt.
  */
 #define BMLITE_RST_PORT     GPIOC

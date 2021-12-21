@@ -14,6 +14,7 @@ There are some variables controlling application building:
 APP - defines application
 PLATFORM - defines HW plaform with HAL implementation
 DEBUG - if defined as 'y' will produce debug output and add debug information
+PORT - if defined as UART, BM-Lite HAL will use UART interface. Else will use SPI interface
 
 Not all applications can be built for a particular platform. To build embedded application for nRF52840 platform with additional debug info use:
 
@@ -35,14 +36,17 @@ There are some useful makefile targets:
 
 Platform-independent interface implemented in [platform.c](BMLite_sdk/src/platform.c)
 
-| Platform function | Description  |
-| :-------- | :-------- |
-| fpc_bep_result_t **platform_init**(void *params) |  Initilalizes hardware |
-| void **platform_bmlite_reset**(void) | Implements BM-Lite HW Reset |
-| fpc_bep_result_t **platform_bmlite_spi_send**(uint16_t size, const uint8_t *data, uint32_t timeout) | Send data packet to FPC BM-Lite |
-| fpc_bep_result_t **platform_bmlite_spi_receive**(uint16_t size, uint8_t *data, uint32_t timeout) | Receive data packet from FPC BM-Lite. If timeout = **0**, the function will wait for data from BM-Lite indefinitely. The waiting loop will be breaked if **hal_check_button_pressed()** returns non-zero value. It is recommended to do HW or SW reset of BM-Lite if **platform_bmlite_spi_receive()** returns **FPC_BEP_RESULT_TIMEOUT** in order to return is into known state. |
+<table>
+<tr><th> Platform function <th> Description</tr>
+<tr><td> fpc_bep_result_t <b>platform_init</b>(void *params) <td>  Initilalizes hardware </tr>
+<tr><td> void <b>platform_bmlite_reset</b>(void) <td> Implements BM-Lite HW Reset </tr>
+<tr><td> fpc_bep_result_t <b>platform_bmlite_spi_send</b>(uint16_t size, const uint8_t *data, uint32_t timeout) <br> fpc_bep_result_t <b>platform_bmlite_uart_send</b>(uint16_t size, const uint8_t *data, uint32_t timeout) <td> Send data packet to FPC BM-Lite </tr>
+<tr><td> fpc_bep_result_t <b>platform_bmlite_spi_receive</b>(uint16_t size, uint8_t *data, uint32_t timeout) <br> fpc_bep_result_t <b>platform_bmlite_uart_receive</b>(uint16_t size, uint8_t *data, uint32_t timeout)<td> Receive data packet from FPC BM-Lite. If timeout = <b>0</b>, the function will wait for data from BM-Lite indefinitely. The waiting loop will be breaked if <b>hal_check_button_pressed()</b> returns non-zero value. It is recommended to do HW or SW reset of BM-Lite if <b>platform_bmlite_spi_receive()</b> returns **FPC_BEP_RESULT_TIMEOUT** in order to return is into known state. </tr>
+</table>
 
-Currently **platform_bmlite_uart_send()** and **platform_bmlite_uart_receive()** are not implemented. For UART interface there is no need to wait for **IRQ** pin ready. However because in UART mode there is no signal from FPC-BM-LIte that it will send data, I would recommend to use UART interrupt or DMA to receive data from UART and store it to a separate buffer and read data in **platform_bmlite_uart_receive()** from that buffer. Activation UART data reading only inside **platform_bmlite_uart_receive()** could lead to loosing some incoming data and causing HCP protocol errors.
+
+For UART interface **IRQ/READY** pin is not used, so in UART mode there is no signal from FPC-BM-Lite indicating that BM-Lite is going to send data. To avoid data loss, all data received from UART must be stored into an incoming circular buffer. I would recommend to use UART interrupt or DMA to receive data from UART and store it to the buffer.
+**platform_bmlite_uart_receive()** will read from that buffer when HCP protocol requests to read a data block. Activation UART data reading only inside **platform_bmlite_uart_receive()** will lead to loosing incoming data and causing HCP protocol errors.
 
 ------------
 
@@ -57,6 +61,8 @@ For porting the project to a new microcontroller, all functions from [bmlite_hal
 | fpc_bep_result_t **hal_board_init**(void *params) |  Initialize GPIO, System timer, SPI  |
 | void **hal_bmlite_reset**(bool state) |  Activate/Deactivate BM-Lite **RST_N** pin (***Active Low***) |
 | fpc_bep_result_t **hal_bmlite_spi_write_read**(uint8_t *write, uint8_t *read, size_t size, bool leave_cs_asserted) |  SPI data exchange |
+| size_t **hal_bmlite_uart_write**(const uint8_t *data, size_t size); | Write data to UART interface |
+| size_t **hal_bmlite_uart_read**(uint8_t *buff, size_t size); |  Read data from UART interface |
 | bool **hal_bmlite_get_status**(void) | Return status of BM-Lite **IRQ** pin (***Active High***) |
 | void **hal_timebase_init**(void) |  Initialize system clock with 1 msec tick |
 | uint32_t **hal_timebase_get_tick**(void) | Read currect system clock value |

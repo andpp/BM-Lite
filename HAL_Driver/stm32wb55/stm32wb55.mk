@@ -63,6 +63,7 @@ LDFLAGS += -T $(HAL)/STM32WB55RGVX_FLASH.ld
 $(OUT)/obj/stm32wbxx_hal_pwr_ex.o: CFLAGS+=-Wno-unused-parameter
 $(OUT)/obj/stm32wbxx_hal_rtc_ex.o: CFLAGS+=-Wno-unused-parameter
 $(OUT)/obj/syscalls.o: CFLAGS+=-Wno-unused-parameter
+$(OUT)/obj/hal_uart.o: CFLAGS+=-Wno-discarded-qualifiers
 
 ifeq ($(FPU),soft)
 AR_LIBS +=\
@@ -87,6 +88,9 @@ HAL_SRCS := \
 	$(SDK_ROOT)/Src/stm32wbxx_hal_rtc.c \
 	$(SDK_ROOT)/Src/stm32wbxx_hal_rtc_ex.c \
 	$(SDK_ROOT)/Src/stm32wbxx_hal_spi.c \
+	$(SDK_ROOT)/Src/stm32wbxx_hal_uart.c \
+	$(SDK_ROOT)/Src/stm32wbxx_hal_uart_ex.c \
+
 
 VPATH += $(dir $(HAL_SRCS))
 C_SRCS += $(notdir $(HAL_SRCS))

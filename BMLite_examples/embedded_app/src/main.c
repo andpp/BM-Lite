@@ -36,8 +36,13 @@ static uint8_t hcp_txrx_buffer[MTU];
 static uint8_t hcp_data_buffer[DATA_BUFFER_SIZE];
 
 static HCP_comm_t hcp_chain = {
+#ifdef BMLITE_ON_UART
+    .read = platform_bmlite_uart_receive,
+    .write = platform_bmlite_uart_send,
+#else
     .read = platform_bmlite_spi_receive,
     .write = platform_bmlite_spi_send,
+#endif
     .pkt_buffer = hcp_data_buffer,
     .txrx_buffer = hcp_txrx_buffer,
     .pkt_size = 0,

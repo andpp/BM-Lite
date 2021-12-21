@@ -18,7 +18,7 @@
  */
 
 /**
- * @file    platform_timebase.c
+ * @file    hal_timebase.c
  * @brief   timebase interface functions
  */
 

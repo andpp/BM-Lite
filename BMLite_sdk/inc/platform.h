@@ -65,8 +65,7 @@ fpc_bep_result_t platform_bmlite_spi_send(uint16_t size, const uint8_t *data, ui
  *
  * @return ::fpc_com_result_t
  */
-fpc_bep_result_t platform_bmlite_uart_send(uint16_t size, const uint8_t *data, uint32_t timeout,
-        void *session);
+fpc_bep_result_t platform_bmlite_uart_send(uint16_t size, const uint8_t *data, uint32_t timeout);
 
 /**
  * @brief Receives data from SPI port in blocking mode.
@@ -88,8 +87,7 @@ fpc_bep_result_t platform_bmlite_spi_receive(uint16_t size, uint8_t *data, uint3
  *
  * @return ::fpc_com_result_t
  */
-fpc_bep_result_t platform_bmlite_uart_receive(uint16_t size, uint8_t *data, uint32_t timeout,
-        void *session);
+fpc_bep_result_t platform_bmlite_uart_receive(uint16_t size, uint8_t *data, uint32_t timeout);
 
 /**
  * @brief Stops execution if a debug interface is attached.

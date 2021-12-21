@@ -18,9 +18,11 @@
  */
 
 /**
- * @file    platform_spi.c
- * @brief   SPI functions
+ * @file    hal_spi.c
+ * @brief   SPI HAL functions
  */
+
+#ifdef BMLITE_ON_SPI
 
 #include "stm32wbxx_hal.h"
 
@@ -246,3 +248,5 @@ void HAL_SPI_TxRxCpltCallback(SPI_HandleTypeDef *hspi)
         spi_rx_tx_done = true;
     }
 }
+
+#endif

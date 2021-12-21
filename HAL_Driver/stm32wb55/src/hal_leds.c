@@ -18,7 +18,7 @@
  */
 
 /**
- * @file   led.c
+ * @file   hal_leds.c
  * @brief  Initialization and access of LED.
  *
  *  The user LED on the Nucleo-L476RG is using the same pin as SPI SCK (PA5) so the LED
